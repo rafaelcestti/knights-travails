@@ -1,7 +1,9 @@
 import "./static/reset.css";
 import "./static/style.css";
 
-class chessBoard {
+import Cell from "./cell";
+
+class ChessBoard {
     // constructor
     constructor() {
         this.cells = [];
@@ -13,7 +15,7 @@ class chessBoard {
         for (let x = 0; x < 8; x += 1) {
             const res = [];
             for (let y = 0; y < 8; y += 1) {
-                res.push(new cell([x, y]));
+                res.push(new Cell([x, y]));
             }
             this.cells.push(res);
         }
@@ -70,7 +72,7 @@ class chessBoard {
         while (queue.length !== 0) {
             const current = queue[0];
 
-            if (current.position[0] == end[0] && current.position[1] == end[1]) {
+            if (current.position[0] === end[0] && current.position[1] === end[1]) {
                 console.log(`You made it in ${mq[0].length - 1} moves! Here's your path:`);
                 mq[0].forEach((move) => {
                     console.log(move);
@@ -80,49 +82,49 @@ class chessBoard {
 
             if (current.lb != null) {
                 queue.push(current.lb);
-                let mh = mq[0].slice();
+                const mh = mq[0].slice();
                 mh.push(current.lb.position);
                 mq.push(mh);
             }
             if (current.lt != null) {
                 queue.push(current.lt);
-                let mh = mq[0].slice();
+                const mh = mq[0].slice();
                 mh.push(current.lt.position);
                 mq.push(mh);
             }
             if (current.tl != null) {
                 queue.push(current.tl);
-                let mh = mq[0].slice();
+                const mh = mq[0].slice();
                 mh.push(current.tl.position);
                 mq.push(mh);
             }
             if (current.tr != null) {
                 queue.push(current.tr);
-                let mh = mq[0].slice();
+                const mh = mq[0].slice();
                 mh.push(current.tr.position);
                 mq.push(mh);
             }
             if (current.rt != null) {
                 queue.push(current.rt);
-                let mh = mq[0].slice();
+                const mh = mq[0].slice();
                 mh.push(current.rt.position);
                 mq.push(mh);
             }
             if (current.rb != null) {
                 queue.push(current.rb);
-                let mh = mq[0].slice();
+                const mh = mq[0].slice();
                 mh.push(current.rb.position);
                 mq.push(mh);
             }
             if (current.br != null) {
                 queue.push(current.br);
-                let mh = mq[0].slice();
+                const mh = mq[0].slice();
                 mh.push(current.br.position);
                 mq.push(mh);
             }
             if (current.bl != null) {
                 queue.push(current.bl);
-                let mh = mq[0].slice();
+                const mh = mq[0].slice();
                 mh.push(current.bl.position);
                 mq.push(mh);
             }
@@ -134,19 +136,5 @@ class chessBoard {
     }
 }
 
-class cell {
-    constructor(position) {
-        this.position = position; // stores current location
-        this.lb = [0, 0];
-        this.lt = [0, 0];
-        this.tl = [0, 0];
-        this.tr = [0, 0];
-        this.rt = [0, 0];
-        this.rb = [0, 0];
-        this.br = [0, 0];
-        this.bl = [0, 0];
-    }
-}
-
-let testBoard = new chessBoard();
-let test = testBoard.knightMoves([3, 3], [4, 3]);
+const testBoard = new ChessBoard();
+testBoard.knightMoves([3, 3], [4, 3]);
