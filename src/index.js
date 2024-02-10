@@ -1,10 +1,6 @@
 import "./static/reset.css";
 import "./static/style.css";
 
-// function knightMoves(start, end) {
-
-// }
-
 class chessBoard {
     // constructor
     constructor() {
@@ -30,7 +26,6 @@ class chessBoard {
         });
     }
 
-    // function that builds a cell
     linkCell(position) {
         const coords = new Map();
 
@@ -59,12 +54,79 @@ class chessBoard {
         coords.set("bl", bl);
 
         coords.forEach((value, key) => {
-            if (value[0] > -1 && value[1] > -1) {
-                this.cells[position[0]][position[1]][key] = value;
+            if (value[0] > -1 && value[1] > -1 && value[0] < 8 && value[1] < 8) {
+                this.cells[position[0]][position[1]][key] = this.cells[value[0]][value[1]];
             } else {
                 this.cells[position[0]][position[1]][key] = null;
             }
         });
+    }
+
+    knightMoves(start, end) {
+        const startCell = this.cells[start[0]][start[1]];
+        const mq = [startCell.position];
+        const queue = [startCell];
+
+        while (queue.length !== 0) {
+            const current = queue[0];
+
+            if (current.position[0] == end[0] && current.position[1] == end[1]) {
+                return mq[0];
+            }
+
+            if (current.lb != null) {
+                queue.push(current.lb);
+                let mh = [mq[0]];
+                mh.push(current.lb.position);
+                mq.push(mh);
+            }
+            if (current.lt != null) {
+                queue.push(current.lt);
+                let mh = [mq[0]];
+                mh.push(current.lt.position);
+                mq.push(mh);
+            }
+            if (current.tl != null) {
+                queue.push(current.tl);
+                let mh = [mq[0]];
+                mh.push(current.tl.position);
+                mq.push(mh);
+            }
+            if (current.tr != null) {
+                queue.push(current.tr);
+                let mh = [mq[0]];
+                mh.push(current.tr.position);
+                mq.push(mh);
+            }
+            if (current.rt != null) {
+                queue.push(current.rt);
+                let mh = [mq[0]];
+                mh.push(current.rt.position);
+                mq.push(mh);
+            }
+            if (current.rb != null) {
+                queue.push(current.rb);
+                let mh = [mq[0]];
+                mh.push(current.rb.position);
+                mq.push(mh);
+            }
+            if (current.br != null) {
+                queue.push(current.br);
+                let mh = [mq[0]];
+                mh.push(current.br.position);
+                mq.push(mh);
+            }
+            if (current.bl != null) {
+                queue.push(current.bl);
+                let mh = [mq[0]];
+                mh.push(current.bl.position);
+                mq.push(mh);
+            }
+            mq.shift();
+            queue.shift(); // Remove element at the front
+        }
+
+        return false;
     }
 }
 
@@ -83,4 +145,5 @@ class cell {
 }
 
 let testBoard = new chessBoard();
-console.log(testBoard);
+let test = testBoard.knightMoves([3, 3], [0, 0]);
+console.log(test);
