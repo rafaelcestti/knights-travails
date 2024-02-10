@@ -64,61 +64,65 @@ class chessBoard {
 
     knightMoves(start, end) {
         const startCell = this.cells[start[0]][start[1]];
-        const mq = [startCell.position];
+        const mq = [[startCell.position]];
         const queue = [startCell];
 
         while (queue.length !== 0) {
             const current = queue[0];
 
             if (current.position[0] == end[0] && current.position[1] == end[1]) {
-                return mq[0];
+                console.log(`You made it in ${mq[0].length - 1} moves! Here's your path:`);
+                mq[0].forEach((move) => {
+                    console.log(move);
+                });
+                return true;
             }
 
             if (current.lb != null) {
                 queue.push(current.lb);
-                let mh = [mq[0]];
+                let mh = mq[0].slice();
                 mh.push(current.lb.position);
                 mq.push(mh);
             }
             if (current.lt != null) {
                 queue.push(current.lt);
-                let mh = [mq[0]];
+                let mh = mq[0].slice();
                 mh.push(current.lt.position);
                 mq.push(mh);
             }
             if (current.tl != null) {
                 queue.push(current.tl);
-                let mh = [mq[0]];
+                let mh = mq[0].slice();
                 mh.push(current.tl.position);
                 mq.push(mh);
             }
             if (current.tr != null) {
                 queue.push(current.tr);
-                let mh = [mq[0]];
+                let mh = mq[0].slice();
                 mh.push(current.tr.position);
                 mq.push(mh);
             }
             if (current.rt != null) {
                 queue.push(current.rt);
-                let mh = [mq[0]];
+                let mh = mq[0].slice();
                 mh.push(current.rt.position);
                 mq.push(mh);
             }
             if (current.rb != null) {
                 queue.push(current.rb);
-                let mh = [mq[0]];
+                let mh = mq[0].slice();
                 mh.push(current.rb.position);
                 mq.push(mh);
             }
             if (current.br != null) {
                 queue.push(current.br);
-                let mh = [mq[0]];
+                let mh = mq[0].slice();
                 mh.push(current.br.position);
                 mq.push(mh);
             }
             if (current.bl != null) {
                 queue.push(current.bl);
-                let mh = [mq[0]];
+                let mh = mq[0].slice();
                 mh.push(current.bl.position);
                 mq.push(mh);
             }
@@ -145,5 +149,4 @@ class cell {
 }
 
 let testBoard = new chessBoard();
-let test = testBoard.knightMoves([3, 3], [0, 0]);
-console.log(test);
+let test = testBoard.knightMoves([3, 3], [4, 3]);
